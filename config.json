@@ -1,0 +1,60 @@
+{
+    "app_name": "jhgocms",
+    "port": 8080,
+    "domain": "www.jhgocms.com",
+    "logger": {
+        "path": "C:/Users/Administrator/Desktop/ginlogs",
+        "name": "system.log"
+    },
+    "mysql": {
+        "connstr": "root:jianghua@tcp(127.0.0.1:3306)/godb?charset=utf8&parseTime=True&loc=Local",
+        "drive": "mysql",
+        "port": 3306,
+        "user": "root",
+        "password": "jianghua",
+        "host": "127.0.0.1",
+        "database": "godb",
+        "params": "?charset=utf8&parseTime=true&loc=Local",
+        "show_sql": true,
+        "max_open_conns": 1000,
+        "max_lifetime": 100,
+        "max_idle_conns": 100,
+        "debug": true,
+        "prefix": "jh_",
+        "suffix": "",
+        "charset": "utf8",
+        "timeout": 5
+    },
+    "redis": {
+        "net_work": "",
+        "host": "127.0.0.1",
+        "port": 6379,
+        "database": 0,
+        "pconnect": true,
+        "password": "",
+        "prefix": "",
+        "timeout": 5,
+        "max_idle": 30,
+        "max_active": 100,
+        "path": "/",
+        "domain": "localhost",
+        "max_age": 14400,
+        "secure": false,
+        "http_only": true,
+        "session_secret": "as&8(0fajfa;lskjr2",
+        "session_name": "jhgocms"
+    },
+    "mq": {
+        "host": "127.0.0.1",
+        "port": 5672,
+        "user": "jhmq",
+        "password": "123456",
+        "vh": "pubg",
+        "topic": "pubg",
+        "timeout": 5
+    },
+    "mongodb": {
+        "host": "127.0.0.1",
+        "port": 5672
+    }
+}

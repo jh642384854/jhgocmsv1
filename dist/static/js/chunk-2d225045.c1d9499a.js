@@ -1,0 +1,1 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d225045"],{e334:function(n,e,t){"use strict";t.r(e);var s=function(){var n=this,e=n.$createElement,t=n._self._c||e;return t("div",{staticClass:"app-container"},[n._v("\n  第三方平台绑定\n")])},a=[],c={name:"userbinds"},u=c,i=t("2877"),l=Object(i["a"])(u,s,a,!1,null,null,null);e["default"]=l.exports}}]);
