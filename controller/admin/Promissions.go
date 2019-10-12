@@ -3,7 +3,7 @@ package admin
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"jhgocms/config"
+	"jhgocms/constant"
 	"jhgocms/model"
 	"jhgocms/serializer"
 	"jhgocms/service/admin"
@@ -31,10 +31,10 @@ func PromissionCreate(c *gin.Context) {
 		if b {
 			msg = serializer.BuildCreatedSuccessResponse(permission.ID, permission.CreatedAt) //.Format(config.TimeFormat)
 		} else {
-			msg = serializer.BuildSimpleFailResponse(config.DatabaseError)
+			msg = serializer.BuildSimpleFailResponse(constant.DatabaseError)
 		}
 	} else {
-		msg = serializer.BuildSimpleFailResponse(config.RecordRepeat)
+		msg = serializer.BuildSimpleFailResponse(constant.RecordRepeat)
 	}
 	c.JSON(http.StatusOK, msg)
 }
@@ -51,7 +51,7 @@ func PromissionUpdate(c *gin.Context) {
 	permissionService = new(admin.PermissionsService)
 	res, errMsg := permissionService.UpdatePermission(permission)
 	if res {
-		msg = serializer.BuildSimpleSuccessResonse(config.OperationSuccess)
+		msg = serializer.BuildSimpleSuccessResonse(constant.OperationSuccess)
 	} else {
 		msg = serializer.BuildSimpleFailResponse(errMsg)
 	}
@@ -64,17 +64,17 @@ func PromissionUpdate(c *gin.Context) {
 func PromissionDelete(c *gin.Context) {
 	did, err := strconv.Atoi(c.Query("id"))
 	if err != nil {
-		msg = serializer.BuildSimpleFailResponse(config.ParameterError)
+		msg = serializer.BuildSimpleFailResponse(constant.ParameterError)
 	}
 	permissionService = new(admin.PermissionsService)
 	result, err := permissionService.DeleteOnePermission(did)
 	if err != nil {
-		msg = serializer.BuildSimpleFailResponse(config.DatabaseError)
+		msg = serializer.BuildSimpleFailResponse(constant.DatabaseError)
 	}
 	if result {
-		msg = serializer.BuildSimpleSuccessResonse(config.OperationSuccess)
+		msg = serializer.BuildSimpleSuccessResonse(constant.OperationSuccess)
 	} else {
-		msg = serializer.BuildSimpleFailResponse(config.OperationFail)
+		msg = serializer.BuildSimpleFailResponse(constant.OperationFail)
 	}
 	c.JSON(http.StatusOK, msg)
 }
@@ -94,12 +94,12 @@ func PromissionGetTreeList(c *gin.Context) {
 	allPermission, err = permissionService.GetTreePermission()
 	if err != nil {
 		dbop1 = false
-		msg = serializer.BuildSimpleFailResponse(config.DatabaseError)
+		msg = serializer.BuildSimpleFailResponse(constant.DatabaseError)
 	}
 	allTotal, err = permissionService.GetTotalPermission()
 	if err != nil {
 		dbop2 = false
-		msg = serializer.BuildSimpleFailResponse(config.DatabaseError)
+		msg = serializer.BuildSimpleFailResponse(constant.DatabaseError)
 	}
 	if dbop1 && dbop2 {
 		msg = serializer.BuildListResponse(allPermission, allTotal)

@@ -50,6 +50,7 @@ func SetRouter(r *gin.Engine)  {
 			role.POST("update",admin.RolesUpdate)
 			role.GET("delete", admin.RolesDelete)
 			role.GET("getpermissions", admin.GetPermissionsByRoleID)
+			role.POST("savepermission",admin.SavePermission)
 		}
 	}
 

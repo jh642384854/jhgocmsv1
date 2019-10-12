@@ -5,9 +5,13 @@ import (
 	"github.com/spf13/viper"
 )
 
+/**
+	注意：
+	定义字段的时候，特别是为字段添加json的tag不能出现下划线的形式，在对应的config.json文件中定义的key也不能出现下划线的方式，比如不能写成max_open_conns，而要写成maxopenconns
+ */
 //服务端配置
 type AppConfig struct {
-	AppName string `json:"app_name"`
+	AppName string `json:"appname"`
 	Port    string `json:"port"`
 	Domain  string `json:"domain"`
 	Logger
@@ -15,6 +19,7 @@ type AppConfig struct {
 	Redis
 	Mq
 	Mongodb
+	Casbin
 }
 
 //日志配置信息
@@ -33,10 +38,10 @@ type MySql struct {
 	Host         string `json:"host"`
 	Database     string `json:"database"`
 	Params       string `json:"params"`
-	ShowSql      bool   `json:"show_sql"`
-	MaxOpenConns int    `json:"max_open_conns"`
-	MaxLifetime  int    `json:"max_lifetime"`
-	MaxIdleConns int    `json:"max_idle_conns"`
+	ShowSql      bool   `json:"showsql"`
+	MaxOpenConns int    `json:"maxopenconns"`
+	MaxLifetime  int    `json:"maxlifetime"`
+	MaxIdleConns int    `json:"maxidleconns"`
 	Debug        bool   `json:"debug"`
 	Prefix       string `json:"prefix"`
 	Suffix       string `json:"suffix"`
@@ -54,15 +59,15 @@ type Redis struct {
 	Password      string `json:"password"`
 	Prefix        string `json:"prefix"`
 	Timeout       int    `json:"timeout"`
-	MaxIdle       int    `json:"max_idle"`
-	MaxActive     int    `json:"max_active"`
+	MaxIdle       int    `json:"maxidle"`
+	MaxActive     int    `json:"maxactive"`
 	Path          string `json:"path"`
 	Domain        string `json:"domain"`
 	MaxAge        int    `json:"max_age"`
 	Secure        bool   `json:"secure"`
-	HttpOnly      bool   `json:"http_only"`
-	SessionSecret string `json:"session_secret"`
-	SessionName   string `json:"session_name"`
+	HttpOnly      bool   `json:"httponly"`
+	SessionSecret string `json:"sessionsecret"`
+	SessionName   string `json:"sessionname"`
 }
 
 //MQ的相关配置
@@ -82,17 +87,23 @@ type Mongodb struct {
 	Port int    `json:"port"`
 }
 
+type Casbin struct {
+	Enablelog bool `json:"enablelog"`
+	Modelfile string `json:"modelfile"`
+}
+
 var SysConfig AppConfig
-func initConfig()  {
+
+func initConfig() {
 	viper.SetConfigName("config") //这里不需要写文件的后缀名
 	viper.AddConfigPath(".")
 	err := viper.ReadInConfig()
-	if err != nil{
-		panic(fmt.Errorf("Fatal error config file:%s\n",err))
+	if err != nil {
+		panic(fmt.Errorf("Fatal error config file:%s\n", err))
 	}
 	//下面调用viper.Unmarshal()方法，将读取的配置文件内容映射到定义的配置结构体上面
-	if err = viper.Unmarshal(&SysConfig); err != nil{
-		panic(fmt.Errorf("Fatal Unmarshal config:%s\n",err))
+	if err = viper.Unmarshal(&SysConfig); err != nil {
+		panic(fmt.Errorf("Fatal Unmarshal config:%s\n", err))
 	}
 }
 

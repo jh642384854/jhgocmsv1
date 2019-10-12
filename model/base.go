@@ -2,7 +2,7 @@ package model
 
 import (
 	"github.com/jinzhu/gorm"
-	"jhgocms/config"
+	"jhgocms/constant"
 	"time"
 )
 
@@ -21,11 +21,11 @@ func (m BaseModel) BeforeCreate(scope *gorm.Scope) error {
 	return nil
 }
 
-func (m BaseModel) BeforeUpdate(scope *gorm.Scope) error {
+/*func (m BaseModel) BeforeUpdate(scope *gorm.Scope) error {
 	scope.SetColumn("updated_at", NowTime())
 	return nil
-}
+}*/
 
 func NowTime() string {
-	return time.Now().Format(config.TimeFormat)
+	return time.Now().Format(constant.TimeFormat)
 }

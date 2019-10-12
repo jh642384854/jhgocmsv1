@@ -1,6 +1,8 @@
 package serializer
 
-import "jhgocms/config"
+import (
+	"jhgocms/constant"
+)
 
 // 消息总结构体
 type Msg struct {
@@ -17,8 +19,8 @@ type CommonMsg struct {
 // 创建对象成功返回的消息对象
 type CreatedMsg struct {
 	CommonMsg
-	LastId      uint   `json:"last_id"`
-	CreatedTime string `json:"created_time"`
+	LastId    uint   `json:"last_id"`
+	CreatedAt string `json:"created_at"`
 }
 
 // 返回列表数据的消息对象
@@ -39,9 +41,9 @@ type OneObjectMsg struct {
  */
 func BuildSimpleFailResponse(msg string) Msg {
 	return Msg{
-		Code: config.SuccessCode,
+		Code: constant.SuccessCode,
 		Data: CommonMsg{
-			Status: config.FailText,
+			Status: constant.FailText,
 			Msg:    msg,
 		},
 	}
@@ -52,9 +54,9 @@ func BuildSimpleFailResponse(msg string) Msg {
  */
 func BuildSimpleSuccessResonse(msg string) Msg {
 	return Msg{
-		Code: config.SuccessCode,
+		Code: constant.SuccessCode,
 		Data: CommonMsg{
-			Status: config.SUCCESS_TEXT,
+			Status: constant.SUCCESS_TEXT,
 			Msg:    msg,
 		},
 	}
@@ -66,11 +68,11 @@ func BuildSimpleSuccessResonse(msg string) Msg {
 func BuildCreatedSuccessResponse(insertID uint, createTime string) Msg {
 	var createMsg CreatedMsg
 	createMsg.LastId = insertID
-	createMsg.CreatedTime = createTime
-	createMsg.CommonMsg.Status = config.SUCCESS_TEXT
-	createMsg.CommonMsg.Msg = config.OperationSuccess
+	createMsg.CreatedAt = createTime
+	createMsg.CommonMsg.Status = constant.SUCCESS_TEXT
+	createMsg.CommonMsg.Msg = constant.OperationSuccess
 	return Msg{
-		Code: config.SuccessCode,
+		Code: constant.SuccessCode,
 		Data: createMsg,
 	}
 }
@@ -80,12 +82,12 @@ func BuildCreatedSuccessResponse(insertID uint, createTime string) Msg {
  */
 func BuildListResponse(objs interface{}, total uint) Msg {
 	var listMsg ListMsg
-	listMsg.CommonMsg.Status = config.SUCCESS_TEXT
-	listMsg.CommonMsg.Msg = config.OperationSuccess
+	listMsg.CommonMsg.Status = constant.SUCCESS_TEXT
+	listMsg.CommonMsg.Msg = constant.OperationSuccess
 	listMsg.Items = objs
 	listMsg.Total = total
 	return Msg{
-		Code: config.SuccessCode,
+		Code: constant.SuccessCode,
 		Data: listMsg,
 	}
 }
@@ -96,11 +98,11 @@ func BuildListResponse(objs interface{}, total uint) Msg {
 func BuildOneObjectResponse(objs interface{}) Msg {
 	//这里也显示了如何进行多层级的struct进行赋值
 	var oneObjectMsg OneObjectMsg
-	oneObjectMsg.CommonMsg.Status = config.SUCCESS_TEXT
-	oneObjectMsg.CommonMsg.Msg = config.OperationSuccess
+	oneObjectMsg.CommonMsg.Status = constant.SUCCESS_TEXT
+	oneObjectMsg.CommonMsg.Msg = constant.OperationSuccess
 	oneObjectMsg.Results = objs
 	return Msg{
-		Code: config.SuccessCode,
+		Code: constant.SuccessCode,
 		Data: oneObjectMsg,
 	}
 }

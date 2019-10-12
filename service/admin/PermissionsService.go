@@ -1,7 +1,7 @@
 package admin
 
 import (
-	"jhgocms/config"
+	"jhgocms/constant"
 	"jhgocms/model"
 )
 
@@ -9,23 +9,23 @@ type PermissionsService struct {
 	AdminService
 }
 
-// @title 添加权限
-// @version 1.0
-// @description 添加成功返回true，否则返回false
-// @Produce  json
-// @Success bool
+/**
+	添加权限
+ */
 func (this PermissionsService) AddPermission(permission *model.Permissions) bool {
 	model.DB.Create(permission)
 	return !model.DB.NewRecord(permission)
 }
-
+/**
+	更新权限
+ */
 func (this PermissionsService) UpdatePermission(permission *model.Permissions) (res bool, errMsg string) {
 	hasPermission := model.DB.Where("name = ? AND path = ? AND id != ?", permission.Name, permission.Path, permission.ID).First(&model.Permissions{}).RecordNotFound()
 	if !hasPermission {
-		return false, config.RecordRepeat
+		return false, constant.RecordRepeat
 	}
 	if err := model.DB.Model(model.Permissions{}).Omit("id","created_time").Where(permission.ID).Updates(permission).Error; err != nil {
-		return false, config.DatabaseError
+		return false, constant.DatabaseError
 	}
 	return true, ""
 }

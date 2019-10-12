@@ -1,4 +1,4 @@
-package config
+package constant
 
 const (
 	OperationSuccess   = "操作成功"
@@ -9,6 +9,7 @@ const (
 	LogoutFail         = "退出失败"
 	GetUserInfoSuccess = "获取用户信息成功"
 	RecordRepeat       = "记录重复"
+	NoRecord           = "记录不存在"
 	DatabaseError      = "数据库操作失败"
 	ParameterError     = "参数错误"
 	DataParseError     = "数据解析错误"

@@ -3,7 +3,7 @@ package utils
 import (
 	"database/sql/driver"
 	"fmt"
-	"jhgocms/config"
+	"jhgocms/constant"
 	"time"
 )
 /**
@@ -17,7 +17,7 @@ type FormatTime struct {
 //这个是在进行json输出的时候会自动做处理
 func (t FormatTime) MarshalJSON() ([]byte, error) {
 	fmt.Println("FormatTime MarshalJSON()...")
-	formatted := fmt.Sprintf("\"%s\"", t.Format(config.TimeFormat))
+	formatted := fmt.Sprintf("\"%s\"", t.Format(constant.TimeFormat))
 	return []byte(formatted), nil
 }
 

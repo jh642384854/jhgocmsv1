@@ -2,6 +2,7 @@
     "app_name": "jhgocms",
     "port": 8080,
     "domain": "www.jhgocms.com",
+    "casbin_model_file": "E:/GoProjects/rbac_model2.conf",
     "logger": {
         "path": "C:/Users/Administrator/Desktop/ginlogs",
         "name": "system.log"
@@ -56,5 +57,8 @@
     "mongodb": {
         "host": "127.0.0.1",
         "port": 5672
+    },
+    "casbin": {
+        "model_file": "E:/GoProjects/rbac_model2.conf"
     }
 }
