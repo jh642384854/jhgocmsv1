@@ -3,6 +3,8 @@ package admin
 import (
 	"jhgocms/constant"
 	"jhgocms/model"
+	"jhgocms/utils"
+	"strconv"
 )
 
 type PermissionsService struct {
@@ -77,6 +79,23 @@ func (this PermissionsService) recursivePermission(permissions []model.Permissio
 	return list
 }
 
+/**
+	根据指定权限ID来生成权限树
+ */
+func (this PermissionsService) GetTreePermissionByPermissions(permissionIds []string) ([]model.Permissions, error) {
+	permissions := make([]model.Permissions, 0)
+	if err := model.DB.Find(&permissions).Error; err != nil {
+		return nil, err
+	}
+	newPermissions := []model.Permissions{}
+	for _, value := range permissions {
+		if(utils.SliceContainSomeOne(permissionIds,string(strconv.Itoa(int(value.ID))))){
+			newPermissions = append(newPermissions,value)
+		}
+	}
+	permissonReuslt := this.recursivePermission(newPermissions, 0, 0)
+	return permissonReuslt, nil
+}
 /**
 	删除某条权限记录
  */

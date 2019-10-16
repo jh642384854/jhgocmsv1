@@ -1,8 +1,9 @@
 package utils
 
 import (
-	"fmt"
 	"crypto/md5"
+	"fmt"
+	"github.com/chenhg5/collection"
 	"github.com/sirupsen/logrus"
 )
 
@@ -38,4 +39,10 @@ func RemoveReplicaSliceString(slc []string) []string {
 		}
 	}
 	return result
+}
+/**
+	判断切片中是否包含某个元素
+ */
+func SliceContainSomeOne(slc []string,target string) bool {
+	return collection.Collect(slc).Contains(target)
 }

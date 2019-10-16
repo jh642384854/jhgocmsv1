@@ -117,6 +117,7 @@ func GetPermissionsByRoleID(c *gin.Context)  {
 	c.JSON(http.StatusOK,serializer.BuildListResponse(permissons,uint(cap(permissons))))
 }
 
+
 /**
 	为某个角色设置权限
  */

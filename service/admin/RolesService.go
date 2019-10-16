@@ -4,6 +4,7 @@ import (
 	"github.com/jinzhu/gorm"
 	"jhgocms/constant"
 	"jhgocms/model"
+	"jhgocms/utils"
 	"strings"
 )
 
@@ -72,7 +73,6 @@ func (this RolesService) AssignRolePermission(rolePermission *model.RolePermissi
 			}
 		}
 	}
-
 }
 
 /**
@@ -83,4 +83,28 @@ func (this RolesService) DeleteRolePermission(tx *gorm.DB,role_id uint) bool {
 		return false
 	}
 	return true
+}
+
+/**
+	获取多个角色的权限
+ */
+func (this RolesService) GetPermissionByRoleIDs(roleids string) []string {
+	permissionids := []string{}
+	rolePermission := []model.RolePermissions{}
+	model.DB.Where("role_id in (?)",strings.Split(roleids,",")).Find(&rolePermission)
+	for _, value := range rolePermission {
+		permissionids = append(permissionids,strings.Split(value.Permissions,",")...)
+	}
+	//这里只是获取所有的子菜单权限
+	allSonPermissions := utils.RemoveReplicaSliceString(permissionids)
+	//这里还需要把子菜单对应的父菜单的权限加上
+	type permission struct {
+		Pid string `json:"pid"`
+	}
+	parentsPermissions := make([]permission,0)
+	model.DB.Model(&model.Permissions{}).Select("DISTINCT(pid)").Where("id in (?) and pid != 0",allSonPermissions).Find(&parentsPermissions)
+	for _, value := range parentsPermissions {
+		allSonPermissions = append(allSonPermissions,value.Pid)
+	}
+	return utils.RemoveReplicaSliceString(allSonPermissions)
 }

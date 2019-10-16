@@ -106,3 +106,17 @@ func PromissionGetTreeList(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, msg)
 }
+
+/**
+	根据用户角色动态获取可操作的权限菜单
+	TODO 对于特定的超级管理员不做角色判断，这个后面在加上
+ */
+func GenerateRoutesByRoles(c *gin.Context)  {
+	roles := c.Query("roles")
+	roleService = new(admin.RolesService)
+	permissionIds := roleService.GetPermissionByRoleIDs(roles)
+	permissionService = new(admin.PermissionsService)
+	rolePermissions,_ := permissionService.GetTreePermissionByPermissions(permissionIds)
+	msg = serializer.BuildListResponse(rolePermissions, uint(len(rolePermissions)))
+	c.JSON(http.StatusOK,msg)
+} 

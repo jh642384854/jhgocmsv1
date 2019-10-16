@@ -51,7 +51,8 @@ func initStatic(r *gin.Engine) {
 }
 
 /**
-	注册中间件
+	注册中间
+件
  */
 func regMiddleware(r *gin.Engine) {
 	//1.整合Logrus日志中间件

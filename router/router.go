@@ -42,6 +42,7 @@ func SetRouter(r *gin.Engine)  {
 			promissions.POST("update",admin.PromissionUpdate)
 			promissions.GET("delete", admin.PromissionDelete)
 			promissions.GET("treelist", admin.PromissionGetTreeList)
+			promissions.GET("generateRoutes", admin.GenerateRoutesByRoles)
 		}
 		role := adminGroup.Group("roles")
 		{
