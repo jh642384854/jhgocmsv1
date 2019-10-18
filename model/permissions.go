@@ -8,6 +8,10 @@ type Permissions struct {
 	Method    string        `json:"method"`
 	Name      string        `json:"name"`
 	Path      string        `json:"path"`
+	Hidden    int           `json:"hidden"`
+	Icon      string        `json:"icon"`
+	Meta      MetaInfo      `gorm:"-" json:"meta"`
+	Component string        `json:"component"`
 	Pid       uint          `json:"pid"`
 	Remark    string        `json:"remark"`
 	Sort      uint          `json:"sort"`
@@ -15,4 +19,9 @@ type Permissions struct {
 	Children  []Permissions `gorm:"-" json:"children"`
 	CreatedAt string        `json:"created_at"`
 	UpdatedAt string        `json:"updated_at"`
+}
+
+type MetaInfo struct {
+	Title string `json:"title"`
+	Icon  string `json:"icon"`
 }

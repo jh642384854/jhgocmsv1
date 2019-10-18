@@ -36,6 +36,12 @@ type OneObjectMsg struct {
 	Results interface{} `json:"results"`
 }
 
+// 附件上传成功的消息的对象
+type Attachment struct {
+	CommonMsg
+	UploadFilePath string `json:"upload_file_path"`
+}
+
 /**
 	构建一个简单的错误消息返回
  */
@@ -104,5 +110,16 @@ func BuildOneObjectResponse(objs interface{}) Msg {
 	return Msg{
 		Code: constant.SuccessCode,
 		Data: oneObjectMsg,
+	}
+}
+
+func BuildUploadSuccessResponse(filePath string) Msg {
+	var attachment Attachment
+	attachment.CommonMsg.Status = constant.SUCCESS_TEXT
+	attachment.CommonMsg.Msg = constant.OperationSuccess
+	attachment.UploadFilePath = filePath
+	return Msg{
+		Code: constant.SuccessCode,
+		Data: attachment,
 	}
 }

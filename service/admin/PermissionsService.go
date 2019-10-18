@@ -72,6 +72,8 @@ func (this PermissionsService) recursivePermission(permissions []model.Permissio
 	for _, value := range permissions {
 		if value.Pid == pid {
 			value.Level = level
+			value.Meta.Title = value.Name
+			value.Meta.Icon = value.Icon
 			value.Children = this.recursivePermission(permissions, value.ID, level+1)
 			list = append(list, value)
 		}

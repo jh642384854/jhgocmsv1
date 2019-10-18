@@ -20,13 +20,13 @@ type AdminUserController struct {
 }
 
 func Login(c *gin.Context) {
-	adminuser := model.AdminUser{ID: 1, Username: "zhangsn", Avatar: "http://img.zcool.cn/community/0189495d663d4ea8012187f4e6f47c.jpg@2o.jpg", Token: "uifjdkkjkljdklfjaksfdfj"}
+	adminuser := model.AdminUser{ID: 1, Username: "zhangsn", Avatar: "http://img.zcool.cn/community/0189495d663d4ea8012187f4e6f47c.jpg@2o.jpg", Token: "uifjdkkjkljdklfjaksfdfj",Roles:"2,7"}
 	msg := serializer.BuildOneObjectResponse(adminuser)
 	c.JSON(http.StatusOK, msg)
 }
 
 func UserInfo(c *gin.Context) {
-	adminuser := model.AdminUser{ID: 1, Username: "zhangsn", Avatar: "http://img.zcool.cn/community/0189495d663d4ea8012187f4e6f47c.jpg@2o.jpg", Token: "uifjdkkjkljdklfjaksfdfj"}
+	adminuser := model.AdminUser{ID: 1, Username: "zhangsn", Avatar: "http://img.zcool.cn/community/0189495d663d4ea8012187f4e6f47c.jpg@2o.jpg", Token: "uifjdkkjkljdklfjaksfdfj",Roles:"2,7"}
 	msg := serializer.BuildOneObjectResponse(adminuser)
 	c.JSON(http.StatusOK, msg)
 }

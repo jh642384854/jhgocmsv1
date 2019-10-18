@@ -3,6 +3,7 @@ package router
 import (
 	"github.com/gin-gonic/gin"
 	"jhgocms/controller/admin"
+	"jhgocms/controller/admin/advs"
 )
 
 const (
@@ -26,6 +27,9 @@ func SetRouter(r *gin.Engine)  {
 	)
 	adminGroup = r.Group("admin")
 	{
+		adminGroup.POST("upload",admin.SimpleImageUpload)
+
+		//管理员相关操作
 		adminuser := adminGroup.Group("adminuser")
 		{
 			adminuser.POST("login", admin.Login)
@@ -36,6 +40,7 @@ func SetRouter(r *gin.Engine)  {
 			adminuser.POST("update",admin.AdminUserUpdate)
 			adminuser.GET("delete", admin.AdminUserDelete)
 		}
+		//权限相关操作
 		promissions := adminGroup.Group("promissions")
 		{
 			promissions.POST("create", admin.PromissionCreate)
@@ -44,6 +49,7 @@ func SetRouter(r *gin.Engine)  {
 			promissions.GET("treelist", admin.PromissionGetTreeList)
 			promissions.GET("generateRoutes", admin.GenerateRoutesByRoles)
 		}
+		//角色相关操作
 		role := adminGroup.Group("roles")
 		{
 			role.GET("list",admin.GetAllRoles)
@@ -53,6 +59,22 @@ func SetRouter(r *gin.Engine)  {
 			role.GET("getpermissions", admin.GetPermissionsByRoleID)
 			role.POST("savepermission",admin.SavePermission)
 		}
-	}
+		//广告相关操作
+		advsRouter := adminGroup.Group("advs")
+		{
+			advsRouter.GET("categories",advs.GetAllCategories)
+			advsRouter.POST("createcate",advs.CreateAdvCate)
+			advsRouter.POST("updatecate",advs.UpdateAdvCate)
+			advsRouter.GET("deletecate",advs.DeleteAdvCate)
+			advsRouter.GET("getonecate",advs.GetOneAdvCate)
 
+			advsRouter.GET("catetypes",advs.GetCatetypes)
+
+			advsRouter.GET("list",advs.GetAdvList)
+			advsRouter.POST("create",advs.CreateAdv)
+			advsRouter.POST("update",advs.UpdateAdv)
+			advsRouter.GET("delete",advs.DeleteAdv)
+			advsRouter.GET("getone",advs.GetOneAdv)
+		}
+	}
 }
