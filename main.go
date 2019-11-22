@@ -21,7 +21,7 @@ var (
 func main() {
 	r = gin.Default()
 	// 2.中间件整合(暂时去掉，后面根据需要在添加)
-	//regMiddleware(r)
+	regMiddleware(r)
 	// 3.静态资源处理
 	initStatic(r)
 	// 4.路由注册
@@ -41,6 +41,7 @@ func initStatic(r *gin.Engine) {
 	//r.LoadHTMLFiles("dist/index.html","dist/home.html")
 	//静态资源映射配置
 	r.Static("/static", "./dist/static") //这个函数其实内部也是调用的下面的StaticFS()这个函数
+	r.Static("/uploads", "./uploads")
 	//r.StaticFS("/static",http.Dir("./dist/static"))
 	r.StaticFile("/favicon.ico", "./dist/favicon.ico")
 	r.GET("/", func(c *gin.Context) {
@@ -51,8 +52,7 @@ func initStatic(r *gin.Engine) {
 }
 
 /**
-	注册中间
-件
+	注册中间件
  */
 func regMiddleware(r *gin.Engine) {
 	//1.整合Logrus日志中间件

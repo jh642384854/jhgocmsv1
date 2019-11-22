@@ -1,6 +1,9 @@
 package admin
 
-import "jhgocms/model"
+import (
+	"jhgocms/constant"
+	"jhgocms/model"
+)
 
 type AdvsService struct {
 	AdminService
@@ -54,3 +57,22 @@ func (this AdvsService) GetALLAdvs(condition map[string]interface{},page,limitSi
 func (this AdvsService) AddAdvCate(advcates *model.Advcates) bool {
 	return this.Add(advcates)
 }
+
+/**
+	删除广告类别
+	需要判断该类别下面是否有广告，该类别有广告的话，不允许删除
+ */
+func (this AdvsService) DeleteAdvCate(id int) (string,bool){
+	advs := []model.Advs{}
+	model.DB.Where("cid = ?",id).Find(&advs)
+	if len(advs) > 0{
+		return constant.CateHasSonData,false
+	}else{
+		if err := model.DB.Where(id).Delete(&model.Advcates{}).Error; err != nil{
+			return constant.DatabaseError,false
+		}else{
+			return constant.OperationSuccess,true
+		}
+	}
+}
+

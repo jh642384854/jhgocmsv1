@@ -11,9 +11,12 @@ import (
  */
 //服务端配置
 type AppConfig struct {
-	AppName string `json:"appname"`
-	Port    string `json:"port"`
-	Domain  string `json:"domain"`
+	AppName    string `json:"appname"`
+	Protocol   string `json:"protocol"`
+	Port       string `json:"port"`
+	Domain     string `json:"domain"`
+	UploadPath string `json:"uploadpath"`
+	Encodekey  string `json:"encodekey"`  //加密用的key
 	Logger
 	MySql
 	Redis
@@ -88,7 +91,7 @@ type Mongodb struct {
 }
 
 type Casbin struct {
-	Enablelog bool `json:"enablelog"`
+	Enablelog bool   `json:"enablelog"`
 	Modelfile string `json:"modelfile"`
 }
 

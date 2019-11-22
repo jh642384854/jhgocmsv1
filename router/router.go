@@ -4,6 +4,9 @@ import (
 	"github.com/gin-gonic/gin"
 	"jhgocms/controller/admin"
 	"jhgocms/controller/admin/advs"
+	"jhgocms/controller/admin/article"
+	"jhgocms/controller/admin/links"
+	"jhgocms/controller/admin/sysconfig"
 )
 
 const (
@@ -73,8 +76,49 @@ func SetRouter(r *gin.Engine)  {
 			advsRouter.GET("list",advs.GetAdvList)
 			advsRouter.POST("create",advs.CreateAdv)
 			advsRouter.POST("update",advs.UpdateAdv)
-			advsRouter.GET("delete",advs.DeleteAdv)
+			advsRouter.POST("delete",advs.DeleteAdv)
 			advsRouter.GET("getone",advs.GetOneAdv)
+		}
+		//友情链接操作
+		linksRouter := adminGroup.Group("links")
+		{
+			linksRouter.POST("create",links.CreateLinks)
+			linksRouter.GET("list",links.ListLinks)
+			linksRouter.POST("update",links.UpdateLinks)
+			linksRouter.POST("delete",links.DeleteLinks)
+		}
+
+		//系统设置
+		settings := adminGroup.Group("settings")
+		{
+			settings.GET("sys", sysconfig.GetConfig)
+			settings.GET("customvariables", sysconfig.GetConfig)
+			settings.GET("email", sysconfig.GetConfig)
+			settings.POST("sys", sysconfig.SaveConfig)
+			settings.POST("customvariables", sysconfig.SaveConfig)
+			settings.POST("email", sysconfig.SaveConfig)
+			settings.POST("testsendemail", admin.TestSendEmail)
+		}
+
+		//内容管理
+		content := adminGroup.Group("articles")
+		{
+			content.GET("list",article.List)
+			content.GET("getone/:id",article.GetOneArticle)
+			content.GET("attributes",article.GetArticlAttributes)
+			content.POST("create",article.AddArticle)
+			content.POST("update",article.UpdateArticle)
+			content.POST("delete",article.DeleteArticle)
+		}
+
+		//文章栏目管理
+		categories := adminGroup.Group("categories")
+		{
+			categories.GET("list",article.CategoriesList)
+			categories.GET("singlelist",article.PageList)
+			categories.GET("delete",article.DeleteCategory)
+			categories.POST("create",article.AddCategory)
+			categories.POST("update",article.UpdateCategory)
 		}
 	}
 }

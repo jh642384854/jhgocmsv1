@@ -1,1 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d0c2630"],{"49a6":function(n,e,t){"use strict";t.r(e);var a=function(){var n=this,e=n.$createElement,t=n._self._c||e;return t("div",{staticClass:"app-container"},[n._v("\n  用户优惠券列表\n")])},c=[],s={name:"usercoupons"},u=s,l=t("2877"),o=Object(l["a"])(u,a,c,!1,null,null,null);e["default"]=o.exports}}]);

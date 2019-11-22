@@ -23,6 +23,12 @@ type CreatedMsg struct {
 	CreatedAt string `json:"created_at"`
 }
 
+//创建对象成功返回的消息对象(这个可以返回更多信息)
+type CreatedMoreInfoMsg struct {
+	CreatedMsg
+	Others interface{} `json:"others"`
+}
+
 // 返回列表数据的消息对象
 type ListMsg struct {
 	CommonMsg
@@ -80,6 +86,19 @@ func BuildCreatedSuccessResponse(insertID uint, createTime string) Msg {
 	return Msg{
 		Code: constant.SuccessCode,
 		Data: createMsg,
+	}
+}
+
+func BuildCreatedSuccessMoreInfoResponse(insertID uint, createTime string,obj interface{}) Msg {
+	var createInfoMsg CreatedMoreInfoMsg
+	createInfoMsg.CreatedMsg.LastId = uint(insertID)
+	createInfoMsg.CreatedMsg.CreatedAt = createTime
+	createInfoMsg.CommonMsg.Status = constant.SUCCESS_TEXT
+	createInfoMsg.CommonMsg.Msg = constant.OperationSuccess
+	createInfoMsg.Others = obj
+	return Msg{
+		Code: constant.SuccessCode,
+		Data: createInfoMsg,
 	}
 }
 

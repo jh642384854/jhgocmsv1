@@ -1,11 +1,17 @@
 package model
 
 import (
+	"fmt"
 	"github.com/jinzhu/gorm"
 	"jhgocms/constant"
 	"time"
 )
 
+type ConditionMap struct {
+	Filed string
+	Operation string
+	Value interface{}
+}
 /**
 	参考 https://www.cnblogs.com/mrylong/p/11326792.html
  */
@@ -28,4 +34,9 @@ func (m BaseModel) BeforeCreate(scope *gorm.Scope) error {
 
 func NowTime() string {
 	return time.Now().Format(constant.TimeFormat)
+}
+
+func AddWhere(field,operation string,value interface{}) *gorm.DB {
+	db := DB.Where(fmt.Sprintf("%s %s %s",field,operation,value))
+	return db
 }
